@@ -1,0 +1,87 @@
+password mongo : kJl7aR5ADDvW2IFs
+
+
+Standar API
+{root.api}/{version}/{grouping}/{endpoint}
+CONTOH
+http://mern-api.rizki.com/v1/auth/login
+
+
+Standar Status response
+
+200 - OK                    --> Call API Success
+201 - CREATED               --> Post Success
+400 - BAD REQUEST           --> Error on Client side (Bisa input salah Dll).
+401 - UNAUTHORIZED          --> User not authorized to request.
+403 - FORBIDDEN             -->     User not allowed to access
+404 - NOT FOUND             --> Request Endpoint Not Found
+500 - INTERNAL SERVER ERROR --> Error on server side
+502 - BAD GATEWAY           --> Invalid Response From Another Request
+
+
+GROUP : Authentication
+
+[1] - Register
+{root.api}/{version}/auth/register
+
+req:
+{
+    "name": "Testing",
+    "email": "test@gmail.com",
+    "password": "123456"
+}
+res:
+{
+    "message": "Register Success",
+    "data":{
+        "id": 1,
+        "name": "Testing",
+        "email": "test@gmail.com",
+        "password": "123456"
+    }
+}
+err-response:
+
+
+[2] - Login
+{root.api}/{version}/auth/login
+
+req:
+{
+    ...
+}
+
+GROUP : BLOG
+
+[1] - create blog post
+[POST] : {root.api}/{version}/blog/post
+
+req:
+{
+    "title": "Title Blog",
+    "image": "imagefile.png",
+    "body": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries"
+}
+
+res:
+{
+    "message": "Create Blog Post Success",
+    "data":{
+    "post_id": 1,
+    "title": "Title Blog",
+    "image": "imagefile.png",
+    "body": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
+    created_at" : "12/06/2020",
+    "author":{
+        "uid": 1,
+        "name": "testing"
+    }
+    }
+}
+err-response:
+201 --> Blog Post Berhasil Dibuat
+400 --> Input yang dimasukkan tidak valid
+
+[2] - get blog post
+[3] - update blog post
+[4] -  delete blog post

@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require("multer");
-
+const path = require("path");
 const app = express();
 const authRoutes = require("./src/routes/auth");
 const blogRoutes = require("./src/routes/blog");
@@ -32,7 +32,10 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ storage: fileStorage, fileFilter: fileFilter });
 
 app.use(bodyParser.json()); //type JSON
+//middleware untuk mengizikan akses ke folder image
+app.use("/images", express.static(path.join(__dirname, "images")));
 
+//middleware untuk upload image
 app.use(upload.single("image"));
 //eror cors
 app.use((req, res, next) => {

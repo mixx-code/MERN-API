@@ -10,20 +10,20 @@ exports.createBlogPost = (req, res, next) => {
     throw err;
   }
 
-  // if (!req.file) {
-  //   const err = new Error("Image Harus di Upload");
-  //   err.errorStatus = 422;
-  //   err.data = errors.array();
-  //   throw err;
-  // }
+  if (!req.file) {
+    const err = new Error("Image Harus di Upload");
+    err.errorStatus = 422;
+    err.data = errors.array();
+    throw err;
+  }
 
   const title = req.body.title;
-  // const image = req.file.path;
+  const image = req.file.path;
   const body = req.body.body;
 
   const Posting = new BlogPost({
     title,
-    // image: image,
+    image: image,
     body,
     author: {
       uid: 1,

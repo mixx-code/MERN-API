@@ -1,37 +1,39 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-// const multer = require("multer");
+const multer = require("multer");
 
 const app = express();
 const authRoutes = require("./src/routes/auth");
 const blogRoutes = require("./src/routes/blog");
 
-// const fileStorage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "/public/images");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, new Date().toString() + "-" + file.originalname);
-//   },
-// });
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./images");
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = new Date().getTime();
+    cb(null, uniqueSuffix + "-" + file.originalname);
+  },
+});
 
-// const fileFilter = (req, file, cb) => {
-//   if (
-//     file.mimetype === "image/png" ||
-//     file.mimetype === "image/jpg" ||
-//     file.mimytype === "image/jpeg"
-//   ) {
-//     cb(null, true);
-//   } else {
-//     cb(null, false);
-//   }
-// };
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({ storage: fileStorage, fileFilter: fileFilter });
 
 app.use(bodyParser.json()); //type JSON
-// app.use(
-//   multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
-// );
+
+app.use(upload.single("image"));
 //eror cors
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");

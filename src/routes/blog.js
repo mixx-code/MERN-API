@@ -18,6 +18,17 @@ router.post(
 
 router.get("/posts", blogController.getAllBlogPost); // --> untuk mengambil semua data
 
+//[GET]: /v1/blog/post/:postId
 router.get("/post/:postId", blogController.getBlogPostById);
+
+//[PUT]
+router.put(
+  "/post/:postId",
+  [
+    body("title").isLength({ min: 5 }).withMessage("Input Title tidak sesuai"),
+    body("body").isLength({ min: 5 }).withMessage("Input body tidak sesuai"),
+  ],
+  blogController.updateBlogPost
+);
 
 module.exports = router;

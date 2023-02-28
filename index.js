@@ -8,7 +8,9 @@ const authRoutes = require("./src/routes/auth");
 const blogRoutes = require("./src/routes/blog");
 
 const port = process.env.PORT || 4000;
-
+const database =
+  process.env.MONGO_URI ||
+  "mongodb+srv://rizki:kJl7aR5ADDvW2IFs@cluster0.hiuv4fm.mongodb.net/blog?retryWrites=true&w=majority";
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./images");
@@ -62,10 +64,14 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect(
-    "mongodb+srv://rizki:kJl7aR5ADDvW2IFs@cluster0.hiuv4fm.mongodb.net/blog?retryWrites=true&w=majority"
-  )
+  .connect(database, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
   .then(() => {
     app.listen(port, () => console.log("connection success"));
   })
   .catch((err) => console.log(err));
+mongoose.connection.on("connected", () =>
+  console.log(`${database}, terkoneksi....`)
+);

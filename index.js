@@ -13,7 +13,7 @@ const database =
   "mongodb+srv://rizki:kJl7aR5ADDvW2IFs@cluster0.hiuv4fm.mongodb.net/blog?retryWrites=true&w=majority";
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./images");
+    cb(null, "./public/uploads/");
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = new Date().getTime();

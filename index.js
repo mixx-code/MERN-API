@@ -32,7 +32,7 @@ const fileFilter = (req, file, cb) => {
     cb(null, false);
   }
 };
-
+app.use(express.static("public"));
 const upload = multer({ storage: fileStorage, fileFilter: fileFilter });
 
 app.use(bodyParser.json()); //type JSON

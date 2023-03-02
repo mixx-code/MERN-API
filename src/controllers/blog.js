@@ -5,8 +5,8 @@ const path = require("path");
 const fs = require("fs");
 const { count } = require("console");
 exports.createBlogPost = (req, res, next) => {
-  res.set("Content-Type", "application/json");
-  res.set("Cache-Control", "max-age=3600");
+  // res.set("Content-Type", "application/json");
+  // res.set("Cache-Control", "max-age=3600");
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const err = new Error("Input value tidak sesuai");

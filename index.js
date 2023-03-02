@@ -13,7 +13,7 @@ const database =
   "mongodb+srv://rizki:kJl7aR5ADDvW2IFs@cluster0.hiuv4fm.mongodb.net/blog?retryWrites=true&w=majority";
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./public/uploads/");
+    cb(null, "./images");
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = new Date().getTime();
@@ -32,7 +32,7 @@ const fileFilter = (req, file, cb) => {
     cb(null, false);
   }
 };
-app.use(express.static("public"));
+
 const upload = multer({ storage: fileStorage, fileFilter: fileFilter });
 
 app.use(bodyParser.json()); //type JSON
